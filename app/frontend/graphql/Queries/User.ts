@@ -16,3 +16,34 @@ export const RegisterUser = gql`
     }
   }
 `
+
+export const OmniauthLogin = gql`
+  mutation omniauthLogin(
+    $provider: String!,
+    $uid: String!,
+    $name: String!,
+    $email: String!,
+    $accessToken: String!,
+  ) {
+    omniauthLogin(input:
+      {
+        omniauthAttributes: {
+          provider: $provider
+          uid: $uid
+          name: $name
+          email: $email
+          accessToken: $accessToken
+        }
+      }
+    ) {
+      user {
+        id
+        name
+        email
+        authenticationToken
+      }
+      success
+      errors
+    }
+  }
+`

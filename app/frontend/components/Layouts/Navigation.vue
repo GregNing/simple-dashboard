@@ -16,15 +16,20 @@
               Sign up
             </router-link>
           </li>
+          <li>
+            <ThirdpartyLogin />
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
+import ThirdpartyLogin from '@/components/Shared/ThirdpartyLogin.vue'
 
 export default {
   name: 'Navbar',
+  components: { ThirdpartyLogin },
 };
 </script>

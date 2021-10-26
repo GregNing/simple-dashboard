@@ -1,2 +1,12 @@
 @import 'bootstrap';
 @import 'mosha-vue-toastify/dist/style.css';
+
+.facebook-login-button {
+  color: white;
+  background-color: #3b5998;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: none;
+}
