@@ -37,21 +37,17 @@
 </template>
 <script lang="ts">
 import CustomInput from '@/components/Shared/CustomInput.vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
 import { useMutation } from '@vue/apollo-composable'
 import { SignUpFormSchema } from '@/components/Schema/Index'
 import { RegisterUser } from '@/graphql/Queries/User'
 import _get from 'lodash/get'
+import { createToast } from 'mosha-vue-toastify'
 
 export default {
   name: 'SignUp',
   components: { "custom-input": CustomInput },
   setup() {
-    const router = useRouter()
-    const store = useStore()
-    // const { t } = useI18n({ useScope: 'global' })
     const { handleSubmit, meta, errors } = useForm({ validationSchema: SignUpFormSchema });
     const { value: email } = useField('email')
     const { value: password } = useField('password')
@@ -64,7 +60,7 @@ export default {
         let data = _get(result, 'data.registerUser')
 
         if (data.success) {
-
+          createToast('SignUp Success', {type: 'success'})
         }
       } catch (error) {
       }
