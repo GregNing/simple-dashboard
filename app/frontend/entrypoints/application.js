@@ -1,31 +1,23 @@
-console.log(123)
-// To see this message, add the following to the `<head>` section in your
-// views/layouts/application.html.erb
-//
-//    <%= vite_client_tag %>
-//    <%= vite_javascript_tag 'application' %>
-console.log('Vite ⚡️ Rails')
+import App from '@/components/App.vue'
+import { createApp, provide, h } from 'vue'
+import { DefaultApolloClient } from '@vue/apollo-composable'
+import { apolloClient } from '@/graphql/client'
+import router from '@/router/router'
+import 'bootstrap'
+import '@/stylesheets/main.scss'
 
-// If using a TypeScript entrypoint file:
-//     <%= vite_typescript_tag 'application' %>
-//
-// If you want to use .jsx or .tsx, add the extension:
-//     <%= vite_javascript_tag 'application.jsx' %>
+const app = createApp({
+  setup() {
+    provide(DefaultApolloClient, apolloClient)
+    return {}
+  },
+  render() {
+    return h(App)
+  },
+})
 
-console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
+app.use(router)
 
-// Example: Load Rails libraries in Vite.
-//
-// import '@rails/ujs'
-//
-// import Turbolinks from 'turbolinks'
-// import ActiveStorage from '@rails/activestorage'
-//
-// // Import all channels.
-// import.meta.globEager('./**/*_channel.js')
-//
-// Turbolinks.start()
-// ActiveStorage.start()
-
-// Example: Import a stylesheet in app/frontend/index.css
-// import '~/index.css'
+document.addEventListener('DOMContentLoaded', () => {
+  app.mount('[data-behavior="vue-app"]')
+})
