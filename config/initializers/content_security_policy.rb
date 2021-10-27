@@ -13,11 +13,10 @@ Rails.application.config.content_security_policy do |policy|
   policy.manifest_src :self
 
   if Rails.env.development?
-    policy.connect_src :self, "https://#{ViteRuby.config.host_with_port}", "ws://#{ViteRuby.config.host_with_port}"
-    policy.script_src :self, :unsafe_eval, "http://#{ViteRuby.config.host_with_port}", :unsafe_inline, 'https://polyfill.io'
-    policy.script_src_elem :self, :unsafe_inline
+    policy.connect_src :self, :https, "http://#{ViteRuby.config.host_with_port}", "ws://#{ViteRuby.config.host_with_port}"
+    policy.script_src :self, :https, :unsafe_eval, "http://#{ViteRuby.config.host_with_port}", :unsafe_inline, 'https://polyfill.io'
+    policy.script_src_elem :self, :unsafe_inline, "https://connect.facebook.net", "https://apis.google.com"
     policy.style_src_elem  :self, :unsafe_inline
-    # policy.connect_src *policy.connect_src, :self
   else
     policy.connect_src :self
     policy.script_src :self, :blob
