@@ -3,13 +3,13 @@
 require "rails_helper"
 
 RSpec.describe Mutations::RegisterUser do
-  it "registers the user" do
-    variables = {
-      "name" => "James",
-      "email" => "kleinjm007@gmail.com",
-      "password" => "testing123"
-    }
+  let(:variables) {{
+      name: Faker::Games::WorldOfWarcraft.hero,
+      email: Faker::Internet.email,
+      password: "#{Devise.friendly_token[0..20]}@"
+   }}
 
+  it "registers the user" do
     result = gql_query(query: mutation, variables: variables).
       to_h.deep_symbolize_keys.dig(:data, :registerUser)
 
@@ -17,13 +17,7 @@ RSpec.describe Mutations::RegisterUser do
   end
 
   it "raises error for RecordInvalid" do
-    variables = {
-      "name" => "James",
-      "email" => "kleinjm007@gmail.com",
-      "password" => "testing123"
-    }
-
-    user = User.new
+    user = User.new()
     user.validate # missing fields makes this invalid
     allow(User).to receive(:create!).
       and_raise(ActiveRecord::RecordInvalid.new(user))

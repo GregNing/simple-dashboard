@@ -3,10 +3,15 @@ class OauthProvider < ApplicationRecord
 
   validates :uid, :name, presence: true
 
+  PROVIDER_NAME = %w[google facebook].freeze
+
+  validates_inclusion_of :name, in: PROVIDER_NAME
+
   def self.find_for_oauth(auth)
     user = build_or_update_user(auth)
 
     find_or_create_by(uid: auth.uid, name: auth.provider) do |provider|
+
       unless user.persisted?
         user.save
       end
@@ -20,7 +25,7 @@ class OauthProvider < ApplicationRecord
     name = auth.name
 
     user = User.find_or_initialize_by(email: email) do |new_user|
-      new_user.password = Devise.friendly_token[0, 20]
+      new_user.password = "##{Devise.friendly_token[0..20]}@"
     end
 
     if user.persisted?

@@ -7,6 +7,7 @@ module Mutations
     argument :omniauth_attributes, Types::Input::OmniauthInputType, required: true
 
     field :user, Types::UserType, null: false
+
     def resolve(omniauth_attributes:)
       auth = OpenStruct.new(omniauth_attributes.to_h)
       user = User.from_omniauth(auth)

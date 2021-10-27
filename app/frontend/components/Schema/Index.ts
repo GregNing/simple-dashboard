@@ -4,6 +4,9 @@ export const SignUpFormSchema = object().shape({
   email: string()
     .email()
     .required(),
-  password: string().min(5).required(),
-  name: string().required().min(8),
+  password: string().required().matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+  ),
+  name: string().required().min(6),
 });
