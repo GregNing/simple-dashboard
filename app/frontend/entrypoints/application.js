@@ -6,6 +6,7 @@ import router from '@/router/router'
 import 'bootstrap'
 import '@/stylesheets/main.scss'
 import GAuth from 'vue3-google-oauth2'
+import store from '~/store'
 
 const gAuthOptions = { clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID, scope: 'email profile' }
 
@@ -20,6 +21,7 @@ const app = createApp({
 })
 
 app.use(router)
+app.use(store)
 app.use(GAuth, gAuthOptions)
 
 document.addEventListener('DOMContentLoaded', () => {
