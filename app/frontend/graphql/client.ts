@@ -1,6 +1,16 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client/core'
 import { setContext } from '@apollo/client/link/context'
-import { getStoredAuthToken } from '@/utils/authToken'
+import store from '@/store'
+import { onError } from "@apollo/client/link/error"
+import { createToast } from 'mosha-vue-toastify'
+
+const errorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach(({ message }) =>
+      createToast(message, {type: 'danger'})
+    )
+  }
+})
 
 const host = window.location.origin
 const httpLink = createHttpLink({
@@ -8,7 +18,7 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext((_, { headers }) => {
-  const authToken = getStoredAuthToken()
+  const authToken = store.getters.getAccessToken
 
   return {
     headers: {
@@ -18,11 +28,9 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-// Cache implementation
 const cache = new InMemoryCache()
 
-// Create the apollo client
 export const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: from([errorLink, authLink.concat(httpLink)]),
   cache,
 })

@@ -47,3 +47,17 @@ export const OmniauthLogin = gql`
     }
   }
 `
+
+export const LogIn = gql`
+  mutation logIn($email: String!, $password: String!) {
+    logIn(input: { email: $email, password: $password }) {
+      user {
+        id
+        name
+        authenticationToken
+      }
+      success
+      errors
+    }
+  }
+`
