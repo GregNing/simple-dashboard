@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <h2>LognIn</h2>
+      <h2>LogIn</h2>
       <form @submit.prevent="onSubmit">
         <custom-input
           label="email"
@@ -38,7 +38,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 export default {
-  name: 'LognIn',
+  name: 'LogIn',
   components: { "custom-input": CustomInput },
   setup() {
     const router = useRouter()

@@ -61,3 +61,11 @@ export const LogIn = gql`
     }
   }
 `
+export const LogOut = gql`
+  mutation logOut {
+    logOut(input: {}) {
+      success
+      errors
+    }
+  }
+`

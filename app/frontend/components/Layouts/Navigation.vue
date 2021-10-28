@@ -38,7 +38,7 @@
         >
           <li class="nav-item">
             <router-link
-              :to="{ name: 'Lognin' }"
+              :to="{ name: 'LogIn' }"
               class="nav-link"
             >
               Sign In
@@ -65,16 +65,35 @@
 import ThirdpartyLogin from '@/components/Shared/ThirdpartyLogin.vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
+import { LogOut } from '@/graphql/Queries/User'
+import { useRouter } from 'vue-router'
+import { createToast } from 'mosha-vue-toastify'
+import _get from 'lodash/get'
 
 export default {
   name: 'Navbar',
   components: { ThirdpartyLogin },
   setup() {
-    const { getters } = useStore()
+    const router = useRouter()
+    const { getters, dispatch } = useStore()
     const isAuthenticated = computed(() => getters.isAuthenticated)
     const name = computed(() => getters.user.name)
-    const handleLogOut = async () => {
+    const { mutate: logOutMutation, loading: loading } = useMutation(LogOut)
 
+    const handleLogOut = async () => {
+      try {
+        const result = await logOutMutation()
+        let success = _get(result, 'data.logOut.success', false)
+
+        if(success) {
+          dispatch('logOut')
+          localStorage.clear()
+          createToast('Log Out Success')
+          router.push({ name: 'LogIn' });
+        }
+      } catch (error) {
+      }
     }
     return {
       isAuthenticated,
