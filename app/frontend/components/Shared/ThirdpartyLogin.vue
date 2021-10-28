@@ -1,11 +1,11 @@
 <template>
   <div>
     <button v-facebook-login-button="appId" class="facebook-login-button mx-2">
-      LognIn
+      LogIn
     </button>
 
     <button @click="handleGoogleClickLogin" class="google-login-button mx-2">
-      Google LognIn
+      Google LogIn
     </button>
   </div>
 </template>

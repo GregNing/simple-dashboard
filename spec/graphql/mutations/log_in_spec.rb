@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Mutations::LogIn do
   let!(:user) { create(:user) }
 
-  context 'when login sucess' do
+  context 'when login Successful' do
     let(:variables) do
       {
         email: user.email,
