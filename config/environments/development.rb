@@ -63,11 +63,18 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # Letter_opener
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'simple-dashboard.test' }
+
+  config.action_mailer.preview_path = Rails.root.join('test/mailers/previews').to_s
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << 'simple-dashboard.test'
   routes.default_url_options = {
-    protocol: 'http',
+    protocol: 'https',
     host: 'simple-dashboard.test'
   }
 end

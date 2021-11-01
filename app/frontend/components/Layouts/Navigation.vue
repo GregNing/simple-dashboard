@@ -31,6 +31,14 @@
               Dashboard
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link
+              :to="{ name: 'ResetPassword' }"
+              class="nav-link"
+            >
+              ResetPassword
+            </router-link>
+          </li>
         </ul>
         <ul
           v-else
@@ -89,7 +97,7 @@ export default {
         if(success) {
           dispatch('logOut')
           localStorage.clear()
-          createToast('Log Out Success')
+          createToast('Log Out Success', {type: 'success'})
           router.push({ name: 'LogIn' });
         }
       } catch (error) {

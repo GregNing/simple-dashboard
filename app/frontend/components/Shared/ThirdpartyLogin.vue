@@ -1,7 +1,7 @@
 <template>
   <div>
     <button v-facebook-login-button="appId" class="facebook-login-button mx-2">
-      LogIn
+      FB LogIn
     </button>
 
     <button @click="handleGoogleClickLogin" class="google-login-button mx-2">
@@ -16,6 +16,7 @@ import { useMutation } from "@vue/apollo-composable";
 import { assign, pick, get } from "lodash";
 import { createToast } from "mosha-vue-toastify";
 import { getCurrentInstance } from "vue";
+import { useRouter } from 'vue-router'
 
 export default {
   directives: {
@@ -26,6 +27,7 @@ export default {
     appId: import.meta.env.VITE_FACEBOOK_APP_ID
   }),
   setup() {
+    const router = useRouter()
     const app = getCurrentInstance();
     const googleAuth = app.appContext.config.globalProperties.$gAuth;
 
@@ -45,6 +47,7 @@ export default {
         const data = get(result, "data.omniauthLogin");
 
         if (data.success) {
+          router.push({ name: 'Dashboard' })
         } else {
         }
       } catch (error) {}
@@ -74,10 +77,11 @@ export default {
 
         if (data.success) {
           createToast('Login Success', {type: 'success'})
+          router.push({ name: 'Dashboard' })
         }
       } catch (error) {
       }
-    };
+    }
 
     return {
       OnFacebookAuthSuccess,

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you want to use :null_session instead.
   protect_from_forgery with: :null_session
 
-  before_action :handle_html_requests
+  before_action :handle_html_requests, only: :index
 
   # Avoid having an empty view file.
   def index

@@ -23,6 +23,7 @@
         />
         <button class="btn btn-primary btn-lg" :disabled="!meta.valid" >SignIn</button>
       </form>
+      <router-link :to="{ name: 'ForgotPassword' }">ForgotPassword</router-link>
     </div>
   </div>
 </template>
