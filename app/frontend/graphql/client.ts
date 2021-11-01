@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client/core'
 import { setContext } from '@apollo/client/link/context'
-import store from '@/store'
+import store from '@/store/Index'
 import { onError } from "@apollo/client/link/error"
 import { createToast } from 'mosha-vue-toastify'
 

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { map, extend } from 'lodash'
-import store from '@/store'
+import store from '@/store/Index'
 import SignUp from '@/components/Pages/SignUp.vue'
 import LogIn from '@/components/Pages/LogIn.vue'
 import Dashboard from '@/components/Pages/Dashboard.vue'
