@@ -43,11 +43,13 @@ import { SignUpFormSchema } from '@/components/Schema/Index'
 import { RegisterUser } from '@/graphql/Queries/User'
 import _get from 'lodash/get'
 import { createToast } from 'mosha-vue-toastify'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'SignUp',
   components: { "custom-input": CustomInput },
   setup() {
+    const router = useRouter()
     const { handleSubmit, meta, errors } = useForm({ validationSchema: SignUpFormSchema });
     const { value: email } = useField('email')
     const { value: password } = useField('password')
@@ -61,6 +63,7 @@ export default {
 
         if (data.success) {
           createToast('SignUp Success', {type: 'success'})
+          router.push({ name: 'LogIn' })
         }
       } catch (error) {
       }
