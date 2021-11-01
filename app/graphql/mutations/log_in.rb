@@ -13,12 +13,11 @@ module Mutations
       user = User.find_for_database_authentication(email: args[:email])
 
       if user.present?
-        if user.valid_password?(args[:password])
-          context[:current_user] = user
-          MutationResult.call(obj: { user: user }, success: true)
-        else
-          GraphQL::ExecutionError.new('Incorrect Email/Password')
-        end
+        raise ParamsError, 'Incorrect Email/Password' unless user.valid_password?(args[:password])
+        raise ParamsError, 'Email needs to be confirmed' unless user.confirmed?
+
+        context[:current_user] = user
+        MutationResult.call(obj: { user: user }, success: true)
       else
         GraphQL::ExecutionError.new('User not registered on this application')
       end

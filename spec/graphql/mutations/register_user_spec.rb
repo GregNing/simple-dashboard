@@ -17,7 +17,7 @@ RSpec.describe Mutations::RegisterUser do
   end
 
   it "raises error for RecordInvalid" do
-    user = User.new()
+    user = User.new
     user.validate # missing fields makes this invalid
     allow(User).to receive(:create!).
       and_raise(ActiveRecord::RecordInvalid.new(user))

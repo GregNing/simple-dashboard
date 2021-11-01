@@ -69,3 +69,36 @@ export const LogOut = gql`
     }
   }
 `
+
+export const ForgotPassword = gql`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(input: { email: $email }) {
+      success
+      errors
+    }
+  }
+`;
+
+export const UpdatePasswordWithToken = gql`
+  mutation updatePasswordWithToken($reset_password_token: String!, $password: String!, $passwordConfirmation: String!) {
+    updatePasswordWithToken(input: {
+      resetPasswordToken: $reset_password_token,
+      password: $password,
+      passwordConfirmation: $passwordConfirmation }) {
+        success
+        errors
+    }
+  }
+`;
+
+export const ResetPassword = gql`
+  mutation resetPassword($oldpassword: String!, $password: String!, $passwordConfirmation: String!) {
+    resetPassword(input: {
+      oldpassword: $oldpassword,
+      password: $password,
+      passwordConfirmation: $passwordConfirmation }) {
+        success
+        errors
+    }
+  }
+`;
