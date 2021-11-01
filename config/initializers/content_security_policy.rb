@@ -18,8 +18,9 @@ Rails.application.config.content_security_policy do |policy|
     policy.script_src_elem :self, :unsafe_inline, "https://connect.facebook.net", "https://apis.google.com"
     policy.style_src_elem  :self, :unsafe_inline
   else
-    policy.connect_src :self
-    policy.script_src :self, :blob
+    policy.connect_src :self, :https
+    policy.script_src :self, :blob, :https, :unsafe_eval
+    policy.script_src_elem :self, "https://apis.google.com", "https://connect.facebook.net"
   end
 
   # @inertiajs/progress uses inline styles
