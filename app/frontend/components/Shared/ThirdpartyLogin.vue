@@ -10,13 +10,14 @@
   </div>
 </template>
 <script lang="ts">
-import { OmniauthLogin } from "@/graphql/Queries/User";
-import FacebookLoginButton from "@/utils/FacebookLoginButton";
-import { useMutation } from "@vue/apollo-composable";
-import { assign, pick, get } from "lodash";
-import { createToast } from "mosha-vue-toastify";
-import { getCurrentInstance } from "vue";
+import { OmniauthLogin } from "@/graphql/Queries/User"
+import FacebookLoginButton from "@/utils/FacebookLoginButton"
+import { useMutation } from "@vue/apollo-composable"
+import { assign, pick, get } from "lodash"
+import { createToast } from "mosha-vue-toastify"
+import { getCurrentInstance } from "vue"
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   directives: {
@@ -27,6 +28,7 @@ export default {
     appId: import.meta.env.VITE_FACEBOOK_APP_ID
   }),
   setup() {
+    const { dispatch } = useStore()
     const router = useRouter()
     const app = getCurrentInstance();
     const googleAuth = app.appContext.config.globalProperties.$gAuth;
@@ -47,6 +49,9 @@ export default {
         const data = get(result, "data.omniauthLogin");
 
         if (data.success) {
+          dispatch('setAuthToken', data.user.authenticationToken)
+          dispatch('setUser', data.user)
+          createToast('Login Success', {type: 'success'})
           router.push({ name: 'Dashboard' })
         } else {
         }
@@ -76,6 +81,8 @@ export default {
         const data = get(result, "data.omniauthLogin");
 
         if (data.success) {
+          dispatch('setAuthToken', data.user.authenticationToken)
+          dispatch('setUser', data.user)
           createToast('Login Success', {type: 'success'})
           router.push({ name: 'Dashboard' })
         }

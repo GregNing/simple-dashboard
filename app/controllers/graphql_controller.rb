@@ -9,6 +9,7 @@ class GraphqlController < ::Api::V1::BaseController
     context = { current_user: current_user }
 
     result = SimpleDashboardSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
