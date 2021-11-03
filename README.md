@@ -1,24 +1,34 @@
-# README
+## Purpose
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This replaces webpacker with Vite Rails, this Example is demonstrates how to use Rails, Vue, GraphQL and Devise together to create basic token authentication and use Facebook and Google Login.
 
-Things you may want to cover:
+## Installatio
 
-* Ruby version
+Clone the repo locally
 
-* System dependencies
+```
+git clone https://github.com/GregNing/simple-dashboard.git
+```
 
-* Configuration
+Setup (install dependencies, create and seed database):
 
-* Database creation
+```
+cd simple-dashboard
+bin/setup
+```
 
-* Database initialization
+Start it:
 
-* How to run the test suite
+```
+foreman start
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+You're ready to go! Visit your browser (http://localhost:3000)
 
-* Deployment instructions
+## Running Tests
 
-* ...
+All tests can be found in the `./spec`. Run the tests with
+
+```
+bin/rspec
+```
